@@ -1,7 +1,7 @@
 
 import {
     Clapperboard, Plus, Search, CalendarDays, Clock,
-    MapPin, Pencil, Eye, MoreVertical, Menu
+     Pencil, Eye, MoreVertical,
 } from "lucide-react";
 import AdminSidebar from "./AdminSidebar";
 import PageReload from "../PageReload";

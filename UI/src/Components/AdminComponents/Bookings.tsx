@@ -1,7 +1,7 @@
 
 import {
-  Ticket, Search, CalendarDays, CheckCircle2,
-  Clock, XCircle, Eye, MoreVertical, Menu
+  Ticket, Search, CheckCircle2,
+  Clock, XCircle, Eye, MoreVertical, 
 } from "lucide-react";
 import AdminSidebar from "./AdminSidebar";
 import PageReload from "../PageReload";

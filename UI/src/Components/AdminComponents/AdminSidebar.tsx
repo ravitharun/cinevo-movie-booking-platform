@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 
 function AdminSidebar() {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [, setSidebarOpen] = useState(false);
 
 
     const count = useSelector((state: RootState) => state.counter);

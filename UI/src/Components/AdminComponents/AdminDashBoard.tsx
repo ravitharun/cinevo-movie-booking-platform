@@ -1,14 +1,14 @@
 
 import { useState } from "react";
 import {
-    LayoutDashboard,
-    Building2,
+    // LayoutDashboard,
+    // Building2,
     Film,
-    Clapperboard,
+    // Clapperboard,
     Ticket,
-    Users,
+    // Users,
     IndianRupee,
-    BarChart3,
+    // BarChart3,
     Bell,
     Search,
     Menu,
@@ -38,7 +38,7 @@ function AdminDashBoard() {
     const [activePage, setActivePage] = useState("Dashboard");
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
-    const [search, setSearch] = useState("");
+    // const [search, __] = useState("");
     const count = useSelector((state: RootState) => state.counter);
     const activePage_Redux: any = count.Navigation_page
     console.log(activePage_Redux + "activePage_Redux")
@@ -74,16 +74,7 @@ function AdminDashBoard() {
         },
     ];
 
-    const menuItems = [
-        { name: "Dashboard", icon: LayoutDashboard },
-        { name: "Theatres", icon: Building2 },
-        { name: "Screens", icon: MonitorPlay },
-        { name: "Movies", icon: Film },
-        { name: "Shows", icon: Clapperboard },
-        { name: "Bookings", icon: Ticket },
-        { name: "Customers", icon: Users },
-        { name: "Revenue", icon: BarChart3 },
-    ];
+
     const revenueData: any = [
         { month: "May", revenue: 210000 },
         { month: "Jun", revenue: 320000 },
@@ -130,29 +121,6 @@ function AdminDashBoard() {
 
 
 
-    const movies = [
-        {
-            name: "Avengers: Endgame",
-            genre: "Action / Sci-Fi",
-            duration: "3h 02m",
-            status: "Now Showing",
-            image: "https://image.tmdb.org/t/p/w200/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
-        },
-        {
-            name: "Interstellar",
-            genre: "Sci-Fi / Drama",
-            duration: "2h 49m",
-            status: "Now Showing",
-            image: "https://image.tmdb.org/t/p/w200/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
-        },
-        {
-            name: "Inception",
-            genre: "Action / Thriller",
-            duration: "2h 28m",
-            status: "Now Showing",
-            image: "https://image.tmdb.org/t/p/w200/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg",
-        },
-    ];
 
     const activities = [
         { title: "New booking received", detail: "Booking #CNV10245", time: "5 min ago", icon: Ticket },
@@ -161,11 +129,11 @@ function AdminDashBoard() {
         { title: "Payment received", detail: "₹2,450 received", time: "2 hours ago", icon: IndianRupee },
     ];
 
-    const filteredBookings = recentBookings.filter((booking) =>
-        `${booking.id} ${booking.customer} ${booking.movie}`
-            .toLowerCase()
-            .includes(search.toLowerCase())
-    );
+    // const filteredBookings = recentBookings.filter((booking) =>
+    //     `${booking.id} ${booking.customer} ${booking.movie}`
+    //         .toLowerCase()
+    //         .includes(search.toLowerCase())
+    // );
 
 
     const StatCard = ({ stat }: { stat: (typeof stats)[number] }) => {

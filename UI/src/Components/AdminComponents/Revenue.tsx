@@ -1,7 +1,7 @@
 
 import {
-    IndianRupee, TrendingUp, Ticket, CalendarDays,
-    Download, CreditCard, Wallet, Banknote, Menu
+    IndianRupee, TrendingUp, Ticket,
+    Download, CreditCard, Wallet, Banknote,
 } from "lucide-react";
 import AdminSidebar from "./AdminSidebar";
 import PageReload from "../PageReload";

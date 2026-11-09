@@ -1,7 +1,7 @@
 
 import {
   Users, Search, UserCheck, UserX, Ticket,
-  Eye, MoreVertical, Menu
+  Eye, MoreVertical, 
 } from "lucide-react";
 import AdminSidebar from "./AdminSidebar";
 import PageReload from "../PageReload";

@@ -5,15 +5,15 @@ import {
     Plus,
     Search,
     Filter,
-    LayoutDashboard,
+    // LayoutDashboard,
     Building2,
     Armchair,
     CheckCircle2,
     XCircle,
     MoreVertical,
-    Eye,
+    // Eye,
     Pencil,
-    Trash2,
+    // Trash2,
     X,
     MapPin,
     Users,
@@ -21,7 +21,7 @@ import {
     CalendarDays,
     Menu,
     Layers,
-    Clapperboard,
+    // Clapperboard,
 } from "lucide-react";
 
 import AdminSidebar from "./AdminSidebar";
@@ -108,7 +108,7 @@ export default function Screens() {
     const [selectedScreen, setSelectedScreen] = useState<Screen | null>(null);
     const [editingId, setEditingId] = useState<number | null>(null);
     const [form, setForm] = useState(emptyForm);
-    const [menuId, setMenuId] = useState<number | null>(null);
+    // const [____, setMenuId] = useState<number | null>(null);
 
     const activeCount = screens.filter((s) => s.status === "ACTIVE").length;
     const inactiveCount = screens.filter((s) => s.status === "INACTIVE").length;
@@ -139,19 +139,19 @@ export default function Screens() {
         setModalOpen(true);
     };
 
-    const openEditModal = (screen: Screen) => {
-        setEditingId(screen.id);
-        setForm({
-            screenName: screen.screenName,
-            theatreName: screen.theatreName,
-            location: screen.location,
-            screenType: screen.screenType,
-            totalSeats: screen.totalSeats,
-            status: screen.status,
-        });
-        setMenuId(null);
-        setModalOpen(true);
-    };
+    // const openEditModal = (screen: Screen) => {
+    //     setEditingId(screen.id);
+    //     setForm({
+    //         screenName: screen.screenName,
+    //         theatreName: screen.theatreName,
+    //         location: screen.location,
+    //         screenType: screen.screenType,
+    //         totalSeats: screen.totalSeats,
+    //         status: screen.status,
+    //     });
+    //     setMenuId(null);
+    //     setModalOpen(true);
+    // };
 
     const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -183,27 +183,27 @@ export default function Screens() {
         setForm(emptyForm);
     };
 
-    const toggleStatus = (id: number) => {
-        setScreens((prev) =>
-            prev.map((screen) =>
-                screen.id === id
-                    ? {
-                        ...screen,
-                        status: screen.status === "ACTIVE" ? "INACTIVE" : "ACTIVE",
-                    }
-                    : screen
-            )
-        );
-        setMenuId(null);
-    };
+    // const toggleStatus = (id: number) => {
+    //     setScreens((prev) =>
+    //         prev.map((screen) =>
+    //             screen.id === id
+    //                 ? {
+    //                     ...screen,
+    //                     status: screen.status === "ACTIVE" ? "INACTIVE" : "ACTIVE",
+    //                 }
+    //                 : screen
+    //         )
+    //     );
+    //     setMenuId(null);
+    // };
 
-    const deleteScreen = (id: number) => {
-        const confirmed = window.confirm("Are you sure you want to delete this screen?");
-        if (!confirmed) return;
+    // const deleteScreen = (id: number) => {
+    //     const confirmed = window.confirm("Are you sure you want to delete this screen?");
+    //     if (!confirmed) return;
 
-        setScreens((prev) => prev.filter((screen) => screen.id !== id));
-        setMenuId(null);
-    };
+    //     setScreens((prev) => prev.filter((screen) => screen.id !== id));
+    //     setMenuId(null);
+    // };
 
     return (
         <>
