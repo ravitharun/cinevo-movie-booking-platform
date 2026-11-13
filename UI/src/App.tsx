@@ -1,6 +1,19 @@
+import WelcomePage from "./Components/WelcomePage";
 
 
 function App() {
+  const token = localStorage.getItem("Token")
+  if (!token) {
+    return (
+
+
+      <>
+        <WelcomePage></WelcomePage>
+
+      </>
+    )
+
+  }
   let user_role = "admin";
   if (user_role == "user") {
     window.location.href = "/explore/home"
@@ -17,7 +30,7 @@ function App() {
 
 
     <>
-    
+
     </>
   )
 }
