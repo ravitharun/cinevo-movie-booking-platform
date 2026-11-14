@@ -1,31 +1,40 @@
+import { useNavigate } from "react-router-dom";
 import WelcomePage from "./Components/WelcomePage";
+import { token, userInfo } from "./Services/Tokeservices";
+import { useEffect } from "react";
 
 
 function App() {
-  const token = localStorage.getItem("Token")
-  if (!token) {
-    return (
+  const navigate = useNavigate()
+  useEffect(() => {
 
 
-      <>
-        <WelcomePage></WelcomePage>
+    const test = () => {
+      let user_role = JSON.parse(userInfo)?.Role;
+      console.log("first")
+      if (!token) {
+        return (
 
-      </>
-    )
+          <>
+            <WelcomePage></WelcomePage></>
+        )
 
-  }
-  let user_role = "admin";
-  if (user_role == "user") {
-    window.location.href = "/explore/home"
-  }
-  else if (user_role == "admin") {
+      }
+      if (user_role == "user") {
+        navigate("/explore/home")
+      }
+      else if (user_role == "Admin") {
 
-    window.location.href = "/admin/Dashboard"
-  }
-  else {
-    window.location.href = "/Padmin/Dashboard"
+        navigate("/admin/Dashboard")
+      }
+      else {
+        navigate("/admin/Dashboard")
 
-  }
+      }
+    }
+    test()
+  }, [userInfo])
+
   return (
 
 

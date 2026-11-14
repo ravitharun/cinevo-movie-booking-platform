@@ -15,8 +15,8 @@ import {
   Film,
 } from "lucide-react";
 
-import { Link } from "react-router-dom";
-import { axiosInstance } from "../../assets/Services/AdminServices";
+import { Link, useNavigate } from "react-router-dom";
+import { axiosInstance } from "../../Services/AdminServices";
 
 function AdminSignUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,25 +31,24 @@ function AdminSignUp() {
   const [TheatreAddress, SetTheatreAddress] = useState("");
   const [Password, SetPassword] = useState("");
   const [ConfirmPassword, SetConfirmPassword] = useState("");
+  const [loading, setloadinresponse] = useState(false)
 
-
+  const navigate = useNavigate()
 
   const Singup = async (e: any) => {
-    console.log("ConfirmPassword -->" + ConfirmPassword)
     e.preventDefault()
 
     const userSingup = {
-      "full_anme": fullname,
-      "mobileNumber": MobileNUmber,
+      "Full_anme": fullname,
+      "MobileNumber": MobileNUmber,
       "email": Email,
-      "theatreName": TheatreName,
+      "TheatreName": TheatreName,
       "city": City,
-      "state": state,
-      "theatreAddress": TheatreAddress,
+      "State": state,
+      "TheatreAddress": TheatreAddress,
       "passwoard": Password,
       "Role": "Admin"
     }
-    console.log(userSingup);
 
     if (
       !fullname ||
@@ -70,12 +69,22 @@ function AdminSignUp() {
 
 
     try {
+      setloadinresponse(true)
       const response = await axiosInstance.post("/user/singup", userSingup)
 
-      console.log(response.data.message)
+      alert(response.data.message)
+      if (response.status == 201 || response.status == 200) {
+        navigate("/admin/login")
+        return setloadinresponse(false)
+      }
     } catch (error: any) {
       console.log(error?.response.data.message + 'error')
+      console.log(error?.response.status + 'error')
+      return alert(error?.response?.data?.message)
 
+    }
+    finally {
+      setloadinresponse(false)
     }
   }
 
@@ -367,13 +376,34 @@ function AdminSignUp() {
             </div>
 
             {/* SUBMIT */}
-            <button
+            {/* <button
               type="submit"
               className="w-full h-14 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 flex items-center justify-center gap-3 font-semibold shadow-lg shadow-violet-600/20 transition"
               onClick={Singup}
             >
               Create Admin Account
               <ArrowRight size={19} />
+            </button> */}
+            <button
+              type="submit"
+              disabled={loading}
+              onClick={Singup}
+              className="group w-full h-14 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 flex items-center justify-center gap-3 font-semibold shadow-lg shadow-violet-600/20 transition-all duration-300 hover:shadow-violet-600/40 disabled:opacity-60"
+            >
+              {loading ? (
+                <>
+                  <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Creating Admin Account ...
+                </>
+              ) : (
+                <>
+                  Create Admin Account
+                  <ArrowRight
+                    size={19}
+                    className="group-hover:translate-x-1 transition-transform"
+                  />
+                </>
+              )}
             </button>
 
             <div className="flex items-center justify-center gap-2 text-xs text-gray-500">

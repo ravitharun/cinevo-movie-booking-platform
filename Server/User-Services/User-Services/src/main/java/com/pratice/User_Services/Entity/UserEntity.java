@@ -1,22 +1,17 @@
 package com.pratice.User_Services.Entity;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
-import jakarta.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class UserEntity {
 
-    // private long userid;
     @Id
-
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userid;
     private String username;
     private long userMobilenumber;
@@ -26,6 +21,16 @@ public class UserEntity {
     private String city;
     private String TheatreAddress;
     private String passowrd;
+
+    private String userRole;
+
+    public String getuserRole() {
+        return userRole;
+    }
+
+    public void setuserRole(String userRole) {
+        this.userRole = userRole;
+    }
 
     public long getUserid() {
         return userid;

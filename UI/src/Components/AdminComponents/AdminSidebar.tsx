@@ -1,15 +1,17 @@
-import { BarChart3, Building2, Clapperboard, ClipboardCheck, Film, LayoutDashboard, LogOut, MonitorPlay, Settings, Ticket, Users, X } from 'lucide-react';
+import { BarChart3, Building2, Clapperboard, ClipboardCheck, Film, LayoutDashboard, LogOut, LogOutIcon, MonitorPlay, Settings, Ticket, Users, X } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../Store/store';
 import type { AppDispatch } from 'recharts/types/state/store';
 import { Setnavigation } from '../../Store/Navigation';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { logout } from '../../Services/AuthService';
 
 
 
 function AdminSidebar() {
     const [, setSidebarOpen] = useState(false);
+    const navigate = useNavigate()
 
 
     const count = useSelector((state: RootState) => state.counter);
@@ -69,6 +71,7 @@ function AdminSidebar() {
             path_n: "",
             path: "/admin/Revenue"
         },
+
     ];
 
 
@@ -105,7 +108,7 @@ function AdminSidebar() {
                 <div className="h-screen flex">
                     <div className="flex-1 px-4 py-6 overflow-y-auto">
                         <p className="text-[10px] font-semibold uppercase tracking-[2px] text-gray-500 px-3 mb-4">
-                            Main Menu -   {activePage}
+                            Main Menu
                         </p>
 
                         <nav className="space-y-1">
@@ -123,6 +126,7 @@ function AdminSidebar() {
                                                 onClick={() => {
 
                                                     dispatch(Setnavigation(item));
+
                                                 }}
                                                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition ${active
                                                     ? "bg-violet-600 text-white shadow-lg shadow-violet-600/20"
@@ -141,6 +145,7 @@ function AdminSidebar() {
 
                                 );
                             })}
+                            <button onClick={() => logout(navigate)}>Logout</button>
                         </nav>
 
                         <p className="text-[10px] font-semibold uppercase tracking-[2px] text-gray-500 px-3 mt-9 mb-4">
