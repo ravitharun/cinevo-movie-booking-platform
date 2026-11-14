@@ -1,4 +1,4 @@
-import { BarChart3, Building2, Clapperboard, ClipboardCheck, Film, LayoutDashboard, LogOut, LogOutIcon, MonitorPlay, Settings, Ticket, Users, X } from 'lucide-react';
+import { BarChart3, Building2, Clapperboard, ClipboardCheck, Film, LayoutDashboard, LogOut, MonitorPlay, Settings, Ticket, Users, X } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../Store/store';
 import type { AppDispatch } from 'recharts/types/state/store';
