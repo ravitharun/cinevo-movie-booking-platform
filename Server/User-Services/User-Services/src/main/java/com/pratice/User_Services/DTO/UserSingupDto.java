@@ -11,6 +11,15 @@ public class UserSingupDto {
     private String State;
     private String TheatreAddress;
     private String passwoard;
+    private String Role;
+
+    public String getRole() {
+        return Role;
+    }
+
+    public void setRole(String role) {
+        Role = role;
+    }
 
     public long getUserid() {
         return Userid;

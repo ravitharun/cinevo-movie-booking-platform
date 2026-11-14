@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   Clapperboard,
   User,
@@ -14,10 +14,84 @@ import {
   ShieldCheck,
   Film,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+
+import { Link, useNavigate } from "react-router-dom";
+import { axiosInstance } from "../../Services/AdminServices";
 
 function AdminSignUp() {
   const [showPassword, setShowPassword] = useState(false);
+  const [showconfirmPassword, setshowconfirmPassword] = useState(false);
+
+  const [fullname, setfullname] = useState("");
+  const [MobileNUmber, setMobileNumber] = useState("");
+  const [Email, setemail] = useState("");
+  const [TheatreName, setTheatreName] = useState("");
+  const [City, SetCity] = useState("");
+  const [state, SetState] = useState("");
+  const [TheatreAddress, SetTheatreAddress] = useState("");
+  const [Password, SetPassword] = useState("");
+  const [ConfirmPassword, SetConfirmPassword] = useState("");
+  const [loading, setloadinresponse] = useState(false)
+
+  const navigate = useNavigate()
+
+  const Singup = async (e: any) => {
+    e.preventDefault()
+
+    const userSingup = {
+      "Full_anme": fullname,
+      "MobileNumber": MobileNUmber,
+      "email": Email,
+      "TheatreName": TheatreName,
+      "city": City,
+      "State": state,
+      "TheatreAddress": TheatreAddress,
+      "passwoard": Password,
+      "Role": "Admin"
+    }
+
+    if (
+      !fullname ||
+      !MobileNUmber ||
+      !Email ||
+      !TheatreName ||
+      !City ||
+      !state ||
+      !TheatreAddress ||
+      !Password
+    ) {
+      return alert("Please fill all fields");
+    }
+    if (Password != ConfirmPassword) {
+      return alert("password not matched ")
+    }
+
+
+
+    try {
+      setloadinresponse(true)
+      const response = await axiosInstance.post("/user/singup", userSingup)
+
+      alert(response.data.message)
+      if (response.status == 201 || response.status == 200) {
+        navigate("/admin/login")
+        return setloadinresponse(false)
+      }
+    } catch (error: any) {
+      console.log(error?.response.data.message + 'error')
+      console.log(error?.response.status + 'error')
+      return alert(error?.response?.data?.message)
+
+    }
+    finally {
+      setloadinresponse(false)
+    }
+  }
+
+
+
+
+
 
   return (
     <div className="min-h-screen bg-[#080812] text-white flex flex-col lg:flex-row">
@@ -134,6 +208,7 @@ function AdminSignUp() {
                     <User size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
                     <input
                       type="text"
+                      onChange={(e) => setfullname(e.target.value)}
                       placeholder="Enter your name"
                       className="w-full h-12 pl-11 pr-4 rounded-xl bg-white/[0.04] border border-white/10 outline-none focus:border-violet-500 transition"
                     />
@@ -148,6 +223,7 @@ function AdminSignUp() {
                     <Phone size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
                     <input
                       type="tel"
+                      onChange={(e) => setMobileNumber(e.target.value)}
                       placeholder="Enter mobile number"
                       className="w-full h-12 pl-11 pr-4 rounded-xl bg-white/[0.04] border border-white/10 outline-none focus:border-violet-500 transition"
                     />
@@ -162,6 +238,7 @@ function AdminSignUp() {
                     <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
                     <input
                       type="email"
+                      onChange={(e) => setemail(e.target.value)}
                       placeholder="admin@example.com"
                       className="w-full h-12 pl-11 pr-4 rounded-xl bg-white/[0.04] border border-white/10 outline-none focus:border-violet-500 transition"
                     />
@@ -189,6 +266,7 @@ function AdminSignUp() {
                     <input
                       type="text"
                       placeholder="Enter theatre name"
+                      onChange={(e) => setTheatreName(e.target.value)}
                       className="w-full h-12 pl-11 pr-4 rounded-xl bg-white/[0.04] border border-white/10 outline-none focus:border-violet-500 transition"
                     />
                   </div>
@@ -205,6 +283,7 @@ function AdminSignUp() {
                       <input
                         type="text"
                         placeholder="Enter city"
+                        onChange={(e) => SetCity(e.target.value)}
                         className="w-full h-12 pl-11 pr-4 rounded-xl bg-white/[0.04] border border-white/10 outline-none focus:border-violet-500 transition"
                       />
                     </div>
@@ -216,6 +295,7 @@ function AdminSignUp() {
                     </label>
                     <input
                       type="text"
+                      onChange={(e) => SetState(e.target.value)}
                       placeholder="Enter state"
                       className="w-full h-12 px-4 rounded-xl bg-white/[0.04] border border-white/10 outline-none focus:border-violet-500 transition"
                     />
@@ -229,6 +309,7 @@ function AdminSignUp() {
                   </label>
                   <textarea
                     rows={2}
+                    onChange={(e) => SetTheatreAddress(e.target.value)}
                     placeholder="Enter complete theatre address"
                     className="w-full p-4 rounded-xl bg-white/[0.04] border border-white/10 outline-none focus:border-violet-500 transition resize-none"
                   />
@@ -255,6 +336,7 @@ function AdminSignUp() {
                     <input
                       type={showPassword ? "text" : "password"}
                       placeholder="Create password"
+                      onChange={(e) => SetPassword(e.target.value)}
                       className="w-full h-12 pl-11 pr-11 rounded-xl bg-white/[0.04] border border-white/10 outline-none focus:border-violet-500 transition"
                     />
                     <button
@@ -274,10 +356,19 @@ function AdminSignUp() {
                   <div className="relative">
                     <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
                     <input
-                      type="password"
+                      onChange={(e) => SetConfirmPassword(e.target.value)}
                       placeholder="Confirm password"
+
+                      type={showconfirmPassword ? "text" : "password"}
                       className="w-full h-12 pl-11 pr-4 rounded-xl bg-white/[0.04] border border-white/10 outline-none focus:border-violet-500 transition"
                     />
+                    <button
+                      type="button"
+                      onClick={() => setshowconfirmPassword(!showconfirmPassword)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-violet-400"
+                    >
+                      {showconfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
                   </div>
                 </div>
 
@@ -285,12 +376,34 @@ function AdminSignUp() {
             </div>
 
             {/* SUBMIT */}
-            <button
+            {/* <button
               type="submit"
               className="w-full h-14 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 flex items-center justify-center gap-3 font-semibold shadow-lg shadow-violet-600/20 transition"
+              onClick={Singup}
             >
               Create Admin Account
               <ArrowRight size={19} />
+            </button> */}
+            <button
+              type="submit"
+              disabled={loading}
+              onClick={Singup}
+              className="group w-full h-14 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 flex items-center justify-center gap-3 font-semibold shadow-lg shadow-violet-600/20 transition-all duration-300 hover:shadow-violet-600/40 disabled:opacity-60"
+            >
+              {loading ? (
+                <>
+                  <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Creating Admin Account ...
+                </>
+              ) : (
+                <>
+                  Create Admin Account
+                  <ArrowRight
+                    size={19}
+                    className="group-hover:translate-x-1 transition-transform"
+                  />
+                </>
+              )}
             </button>
 
             <div className="flex items-center justify-center gap-2 text-xs text-gray-500">

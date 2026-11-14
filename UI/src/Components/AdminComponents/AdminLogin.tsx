@@ -15,6 +15,7 @@ import {
     Sparkles,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { axiosInstance } from "../../Services/AdminServices";
 
 function AdminLogin() {
     const [showPassword, setShowPassword] = useState(false);
@@ -24,7 +25,7 @@ function AdminLogin() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError("");
 
@@ -38,13 +39,33 @@ function AdminLogin() {
             return;
         }
 
-        setLoading(true);
+        try {
+            setLoading(true)
+            const response = await axiosInstance.get("/user/Singin", {
+                params: {
 
+                    "useremail": email,
+                    "Role": "Admin",
+                    "userpassword": password
+                }
+            })
 
-        setTimeout(() => {
-            setLoading(false);
-            setError("Demo login only. Backend authentication is not connected.");
-        }, 1200);
+            if (response.status == 200 || response.status == 201) {
+
+                alert("Login sucesfull")
+                console.log(response.data.token)
+                sessionStorage.setItem("toekn", response.data.token)
+                localStorage.setItem("user", JSON.stringify(response.data.data))
+                setLoading(false)
+                return window.location.href = "/admin/dashboard"
+            }
+
+        } catch (error) {
+            setLoading(false)
+
+        }
+
+        // setLoading(false)
     };
 
     return (
