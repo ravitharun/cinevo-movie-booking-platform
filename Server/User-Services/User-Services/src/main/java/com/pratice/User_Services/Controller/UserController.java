@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pratice.User_Services.DTO.UserSigninDto;
 import com.pratice.User_Services.DTO.UserSingupDto;
 import com.pratice.User_Services.Services.UserServices;
 
@@ -27,6 +26,7 @@ import com.pratice.User_Services.Services.UserServices;
 @RestController
 @RequestMapping("/api/user")
 @CrossOrigin("http://localhost:5173")
+// @CrossOrigin("http://localhost:5173")
 public class UserController {
 
     @Autowired

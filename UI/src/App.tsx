@@ -5,26 +5,23 @@ import { useEffect } from "react";
 
 
 function App() {
+
   const navigate = useNavigate()
   useEffect(() => {
 
 
     const test = () => {
       let user_role = JSON.parse(userInfo)?.Role;
-      console.log("first")
-      if (!token) {
-        return (
 
-          <>
-            <WelcomePage></WelcomePage></>
-        )
 
-      }
+
+
+
       if (user_role == "user") {
         navigate("/explore/home")
       }
-      else if (user_role == "Admin") {
-
+      else if (user_role === "Admin" || "admin") {
+        console.log("first")
         navigate("/admin/Dashboard")
       }
       else {
@@ -39,6 +36,7 @@ function App() {
 
 
     <>
+      <WelcomePage></WelcomePage>
 
     </>
   )
