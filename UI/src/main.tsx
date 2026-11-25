@@ -17,6 +17,9 @@ import Shows from './Components/AdminComponents/Shows.tsx';
 import Bookings from './Components/AdminComponents/Bookings.tsx';
 import Customers from './Components/AdminComponents/Customers.tsx';
 import Revenue from './Components/AdminComponents/Revenue.tsx';
+import PlatformAdminDashboard from './Components/PlatFormAdminComponents/PlatformAdminDashboard.tsx';
+import RoleProtectedRoute from './Components/RoleProtectedRoute.tsx';
+import Unauthorized from './Components/unauthorized.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
@@ -26,20 +29,48 @@ createRoot(document.getElementById('root')!).render(
         <Route path='/' element=
 
           {<App />}></Route>
+        <Route path='/unauthorized' element=
+
+          {<Unauthorized />}></Route>
         <Route path='*' element=
 
           {<NotFound />}></Route>
-        <Route path='/admin/Dashboard' element={<AdminDashBoard></AdminDashBoard>} ></Route>
-        <Route path='/admin/Theatres' element={<Admin_Theatres></Admin_Theatres>} ></Route>
-        <Route path='/admin/TheatreApprovalStatus' element={<TheatreApprovalRequest />} ></Route>
-        <Route path='/admin/Screens' element={<Screens />} ></Route>
-        <Route path='/admin/Movies' element={<AdminMovies />} ></Route>
-        <Route path='/admin/Shows' element={<Shows />} ></Route>
-        <Route path='/admin/Bookings' element={<Bookings />} ></Route>
-        <Route path='/admin/Customers' element={<Customers />} ></Route>
-        <Route path='/admin/Revenue' element={<Revenue />} ></Route>
-        <Route path='/admin/login' element={<AdminLogin></AdminLogin>} ></Route>
-        <Route path='/admin/signup' element={<AdminSignUp></AdminSignUp>} ></Route>
+
+
+        {/* PAdmin Routes*/}
+        <Route element={<RoleProtectedRoute allowedRoles={["PAdmin"]} />}>
+          <Route path='/PlatformAdminDashboard' element={<PlatformAdminDashboard></PlatformAdminDashboard>} ></Route>
+        </Route>
+
+
+
+
+
+        {/* User Routes */}
+
+
+        {/* Admin Routes */}
+        <Route element={<RoleProtectedRoute allowedRoles={["Admin"]} />}>
+
+          <Route path='/admin/Dashboard' element={<AdminDashBoard />} />
+
+          <Route path='/admin/Theatres' element={<Admin_Theatres />} />
+
+          <Route path='/admin/TheatreApprovalStatus' element={<TheatreApprovalRequest />} />
+
+          <Route path='/admin/Screens' element={<Screens />} />
+
+          <Route path='/admin/Movies' element={<AdminMovies />} />
+
+          <Route path='/admin/Shows' element={<Shows />} />
+
+          <Route path='/admin/Bookings' element={<Bookings />} />
+
+          <Route path='/admin/Customers' element={<Customers />} />
+
+          <Route path='/admin/Revenue' element={<Revenue />} />
+
+        </Route>
       </Routes>
 
     </BrowserRouter >

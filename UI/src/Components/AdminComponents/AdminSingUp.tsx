@@ -17,6 +17,7 @@ import {
 
 import { Link, useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../Services/AdminServices";
+import axios from "axios";
 
 function AdminSignUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -70,7 +71,7 @@ function AdminSignUp() {
 
     try {
       setloadinresponse(true)
-      const response = await axiosInstance.post("/user/singup", userSingup)
+      const response = await axios.post("http://localhost:8082/api/user/singup", userSingup)
 
       alert(response.data.message)
       if (response.status == 201 || response.status == 200) {

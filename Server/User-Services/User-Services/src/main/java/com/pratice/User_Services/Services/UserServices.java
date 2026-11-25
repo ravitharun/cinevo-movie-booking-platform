@@ -78,9 +78,10 @@ public class UserServices {
 
     public ResponseEntity<Map<String, Object>> VerfiyUserSignin(String UserRole, String userpassword,
             String useremail) {
-        // System.err.println("DBTharun");
         Map<String, Object> m = new HashMap<>();
-
+        System.err.println(UserRole);
+        System.err.println(userpassword);
+        System.err.println(useremail);
         try {
             List<UserEntity> u = userRepostry.findByUseremail(useremail);
             UserSingupDto user_login = new UserSingupDto();
@@ -94,6 +95,7 @@ public class UserServices {
                 String token = jwt.generateToken(
                         u.get(0).getUseremail(),
                         u.get(0).getuserRole());
+                System.err.println(token + "tokentokentokentoken");
                 user_login.setCity(u.get(0).getCity());
                 user_login.setUserid(u.get(0).getUserid());
                 user_login.setRole(u.get(0).getuserRole());
@@ -108,6 +110,7 @@ public class UserServices {
                 return ResponseEntity.status(200).body(m);
 
             }
+            System.err.println("no user");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(m);
         } catch (Exception e) {
             System.err.println(e.getMessage());

@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { axiosInstance } from "../../Services/AdminServices";
+import toast, { Toaster } from "react-hot-toast";
 
 function AdminLogin() {
     const [showPassword, setShowPassword] = useState(false);
@@ -39,7 +40,10 @@ function AdminLogin() {
             return;
         }
 
+        const toastId = toast.loading("Logging in...");
         try {
+            // toast.loading("Logining")
+
             setLoading(true)
             const response = await axiosInstance.get("/user/Singin", {
                 params: {
@@ -51,16 +55,21 @@ function AdminLogin() {
             })
 
             if (response.status == 200 || response.status == 201) {
+                // toast.success("Logining Done")
+                toast.success("Login Done", { id: toastId });
 
-                alert("Login sucesfull")
-                console.log(response.data.token)
                 sessionStorage.setItem("toekn", response.data.token)
                 localStorage.setItem("user", JSON.stringify(response.data.data))
                 setLoading(false)
-                return window.location.href = "/admin/dashboard"
+                setTimeout(() => {
+                    return window.location.href = "/admin/dashboard"
+
+                }, 2000);
             }
 
-        } catch (error) {
+        } catch (error: any) {
+            // toast.error(error)
+            toast.error("Login failed", { id: toastId });
             setLoading(false)
 
         }
@@ -70,6 +79,7 @@ function AdminLogin() {
 
     return (
         <>
+            <Toaster></Toaster>
             <div className="min-h-screen bg-[#080812] text-white flex flex-col lg:flex-row overflow-hidden">
 
                 {/* LEFT BRANDING SECTION */}

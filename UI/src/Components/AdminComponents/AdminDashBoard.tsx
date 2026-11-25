@@ -33,6 +33,7 @@ import AdminSidebar from "./AdminSidebar";
 import type { RootState } from "../../Store/store";
 import { useSelector } from "react-redux";
 import App from "../../App";
+import { token } from "../../Services/Tokeservices";
 ;
 
 function AdminDashBoard() {
@@ -337,107 +338,109 @@ function AdminDashBoard() {
     // jsx code 
     return (
         <>
-            {/* </> */}
-            <App></App>
-            <div className="min-h-screen bg-[#0c0c16] text-white flex">
+                <div className="min-h-screen bg-[#0c0c16] text-white flex">
 
-                {/* Desktop Sidebar */}
-                <div className="hidden lg:block w-64 shrink-0 fixed inset-y-0 left-0 z-30">
-                    <AdminSidebar />
-                </div>
-
-                {/* Mobile Sidebar */}
-                {sidebarOpen && (
-                    <div className="fixed inset-0 z-50 lg:hidden">
-                        <div
-                            className="absolute inset-0 bg-black/70"
-                            onClick={() => setSidebarOpen(false)}
-                        />
-                        <div className="relative w-72 h-full">
-                            <AdminSidebar />
-                        </div>
+                    {/* Desktop Sidebar */}
+                    <div className="hidden lg:block w-64 shrink-0 fixed inset-y-0 left-0 z-30">
+                        <AdminSidebar />
                     </div>
-                )}
 
-                {/* Main */}
-                <main className="flex-1 min-w-0 lg:ml-64">
-
-                    {/* Topbar */}
-                    <header className="h-20 sticky top-0 z-20 bg-[#0c0c16]/90 backdrop-blur-xl border-b border-white/[0.07] px-5 sm:px-8 flex items-center justify-between">
-
-                        <div className="flex items-center gap-4">
-                            <button
-                                className="lg:hidden text-gray-400"
-                                onClick={() => setSidebarOpen(true)}
-                            >
-                                <Menu size={23} />
-                            </button>
-
-                            <div>
-                                <h2 className="font-semibold text-lg">{activePage}</h2>
-                                <p className="hidden sm:block text-xs text-gray-500">
-                                    Cinevo Admin / {activePage}
-                                </p>
+                    {/* Mobile Sidebar */}
+                    {sidebarOpen && (
+                        <div className="fixed inset-0 z-50 lg:hidden">
+                            <div
+                                className="absolute inset-0 bg-black/70"
+                                onClick={() => setSidebarOpen(false)}
+                            />
+                            <div className="relative w-72 h-full">
+                                <AdminSidebar />
                             </div>
                         </div>
+                    )}
 
-                        <div className="flex items-center gap-3 sm:gap-5">
+                    {/* Main */}
+                    <main className="flex-1 min-w-0 lg:ml-64">
 
-                            <div className="hidden md:flex relative">
-                                <Search size={17} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
-                                <input
-                                    placeholder="Search anything..."
-                                    className="w-52 h-10 pl-10 pr-4 rounded-xl bg-white/[0.04] border border-white/10 outline-none text-sm focus:border-violet-500"
-                                />
-                            </div>
+                        {/* Topbar */}
+                        <header className="h-20 sticky top-0 z-20 bg-[#0c0c16]/90 backdrop-blur-xl border-b border-white/[0.07] px-5 sm:px-8 flex items-center justify-between">
 
-                            <div className="relative">
+                            <div className="flex items-center gap-4">
                                 <button
-                                    onClick={() => setShowNotifications(!showNotifications)}
-                                    className="relative w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-gray-400 hover:text-white"
+                                    className="lg:hidden text-gray-400"
+                                    onClick={() => setSidebarOpen(true)}
                                 >
-                                    <Bell size={19} />
-                                    <span className="absolute top-2 right-2 w-2 h-2 bg-violet-500 rounded-full" />
+                                    <Menu size={23} />
                                 </button>
 
-                                {showNotifications && (
-                                    <div className="absolute right-0 top-14 w-72 bg-[#191929] border border-white/10 rounded-xl shadow-2xl p-4">
-                                        <h3 className="font-semibold mb-4">Notifications</h3>
-                                        <div className="space-y-4 text-sm">
-                                            <p className="text-gray-300">New booking received <span className="block text-xs text-gray-500 mt-1">5 minutes ago</span></p>
-                                            <p className="text-gray-300">New movie added <span className="block text-xs text-gray-500 mt-1">30 minutes ago</span></p>
+                                <div>
+                                    <h2 className="font-semibold text-lg">{activePage}</h2>
+                                    <p className="hidden sm:block text-xs text-gray-500">
+                                        Cinevo Admin / {activePage}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center gap-3 sm:gap-5">
+
+                                <div className="hidden md:flex relative">
+                                    <Search size={17} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                                    <input
+                                        placeholder="Search anything..."
+                                        className="w-52 h-10 pl-10 pr-4 rounded-xl bg-white/[0.04] border border-white/10 outline-none text-sm focus:border-violet-500"
+                                    />
+                                </div>
+
+                                <div className="relative">
+                                    <button
+                                        onClick={() => setShowNotifications(!showNotifications)}
+                                        className="relative w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-gray-400 hover:text-white"
+                                    >
+                                        <Bell size={19} />
+                                        <span className="absolute top-2 right-2 w-2 h-2 bg-violet-500 rounded-full" />
+                                    </button>
+
+                                    {showNotifications && (
+                                        <div className="absolute right-0 top-14 w-72 bg-[#191929] border border-white/10 rounded-xl shadow-2xl p-4">
+                                            <h3 className="font-semibold mb-4">Notifications</h3>
+                                            <div className="space-y-4 text-sm">
+                                                <p className="text-gray-300">New booking received <span className="block text-xs text-gray-500 mt-1">5 minutes ago</span></p>
+                                                <p className="text-gray-300">New movie added <span className="block text-xs text-gray-500 mt-1">30 minutes ago</span></p>
+                                            </div>
                                         </div>
+                                    )}
+                                </div>
+
+                                <div className="flex items-center gap-2">
+                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center font-bold text-sm">
+                                        RA
                                     </div>
-                                )}
+                                    <div className="hidden sm:block">
+                                        <p className="text-sm font-semibold">Ravi Admin</p>
+                                        <p className="text-[10px] text-gray-500">Theatre Admin</p>
+                                    </div>
+                                    <ChevronDown size={15} className="hidden sm:block text-gray-500" />
+                                </div>
                             </div>
+                        </header>
 
-                            <div className="flex items-center gap-2">
-                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center font-bold text-sm">
-                                    RA
-                                </div>
-                                <div className="hidden sm:block">
-                                    <p className="text-sm font-semibold">Ravi Admin</p>
-                                    <p className="text-[10px] text-gray-500">Theatre Admin</p>
-                                </div>
-                                <ChevronDown size={15} className="hidden sm:block text-gray-500" />
-                            </div>
+                        {/* Page Content */}
+                        <div className="p-5 sm:p-8 max-w-[1600px] mx-auto">
+                            {renderDashboard()}
                         </div>
-                    </header>
 
-                    {/* Page Content */}
-                    <div className="p-5 sm:p-8 max-w-[1600px] mx-auto">
-                        {renderDashboard()}
-                    </div>
+                        {/* Footer */}
+                        <footer className="px-8 py-6 border-t border-white/[0.07] text-center text-xs text-gray-600">
+                            © 2026 Cinevo. All rights reserved.
+                            <span className="mx-2">•</span>
+                            <span className="text-violet-400">Cinema Management Portal</span>
+                        </footer>
 
-                    {/* Footer */}
-                    <footer className="px-8 py-6 border-t border-white/[0.07] text-center text-xs text-gray-600">
-                        © 2026 Cinevo. All rights reserved.
-                        <span className="mx-2">•</span>
-                        <span className="text-violet-400">Cinema Management Portal</span>
-                    </footer>
+                    </main>
 
-                </main>
-            </div>
+
+                </div>
+        
+
         </>
     );
 }
